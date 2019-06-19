@@ -187,7 +187,7 @@ export default class Form2 extends React.Component {
               boxItem: element.boxItem
             }
           )
-          
+        
         }) : []
       } 
       style={{width:950}}/>
