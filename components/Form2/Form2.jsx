@@ -54,7 +54,18 @@ const columns = [
       return texto;
     }
   },
-  
+  {
+    title: 'Action',
+    key: 'action',
+    render: (text, record) => (
+      <span>
+        <a onClick={(e) => this.props.handleTableGet(e)}
+        href="javascript:;">Pesquisa {record.name}</a>
+        <Divider type="vertical" />
+        <a href="javascript:;">Delete</a>
+      </span>
+    ),
+  },  
     ];
     
   
@@ -172,7 +183,9 @@ export default class Form2 extends React.Component {
           </Button>
     </Form.Item>
     <Form.Item>
-      <Table columns={columns} 
+      <Table 
+      
+      columns={columns} 
       dataSource={
         this.props.data.length > 0 ?
         this.props.data.map((element) => {
@@ -196,7 +209,13 @@ export default class Form2 extends React.Component {
     onClick={() => this.props.handleTable()}>
                 Submit Table
           </Button>
+    <Button
+    type="primary" htmlType="submit"
+    onClick={(e) => this.props.handleAxiosGet(e)}>
+    Procure
+    </Button>
     </Form.Item>
+    
       </Form>
       </Card>
       </div>

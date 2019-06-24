@@ -103,7 +103,7 @@ onSearch= (val) => {
     this.setState({[name]: e.target.value});
   }
 
- //banco de dados 
+ //envia os dados para o node via post
 handleAxios = () =>{
   axios({
     method: 'post',
@@ -118,7 +118,27 @@ handleAxios = () =>{
       boxItem:this.state.boxItem,
     }
   })
-  .then(resp =>console.log(resp.data))
+  .then(resp =>console.log(resp))
+  .catch(error => {
+    console.log(error)
+});
+}
+handleAxiosGet = () =>{
+  console.log("entrando no get")
+  axios({
+    method: 'get',
+    url: '/api/form',
+    data: {
+      name: this.state.name,
+      genre: this.state.genre,
+      age: this.state.age,
+      checked:this.state.checked,
+      radio:this.state.radio, 
+      select:this.state.select,
+      boxItem:this.state.boxItem,
+    }
+  })
+  .then(resp =>console.log(resp))
   .catch(error => {
     console.log(error)
 });
@@ -162,6 +182,7 @@ handleTable = () =>{
              onSearch={this.onSearch}
              handleAxios={this.handleAxios}
              handleTable={this.handleTable}
+             handleAxiosGet={this.handleAxiosGet}
              
              />
              <pre>

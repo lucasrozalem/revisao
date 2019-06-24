@@ -2,6 +2,7 @@ import "@babel/polyfill";
 import express from "express";
 import next from "next";
 import bodyParser from 'body-parser';
+import formModel from './database/models/form-model'
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
@@ -23,29 +24,49 @@ app.prepare().then(() => {
   server.get('/form', (req, res) => app.render(req, res, '/form'));
   server.get('/form2', (req, res) => app.render(req, res, '/form2'));
   
-  server.post('/api/form', (req, res, next) => {
-    
-    let name1 = req.body.name
-    let genre1 = req.body.genre
-    let age1 = req.body.age
-    let checked1 = req.body.checked
-    let radio1 = req.body.radio
-    let select1 = req.body.select
-    let boxItem1 = req.body.boxItem
-    
-    console.log(name1)
-    console.log(genre1)
-    console.log(age1)
-    console.log(checked1)
-    console.log(radio1)
-    console.log(select1)
-    console.log(boxItem1)
-    res.send('Ok')
+  //salvando dados do front end no banco de dados via node
+  server.post('/api/form', (req, res, next) => { 
+   const data = {
+      
+     name : req.body.name,
+     genre : req.body.genre,
+     age : req.body.age,
+     checked : req.body.checked,
+     radio : req.body.radio,
+     select : req.body.select,
+     boxItem : req.body.boxItem,
+    }
+
+     formModel.createForm({data})
+     .then(data => {
+      console.log("entoru aqui no then")
+       if(data === true){
+        
+            res.status(200).send("Salvou com sucesso!")
+        }
+          })
+          .catch((e) => {
+            console.log("entoru aqui catch", data)
+            res.status(403).send(e);
+          });
+   
+
+
   })
 
-    server.get('/api/form', (req, res, next) => {
-      res.send(console.log(res)
-      )})
+  server.get('/api/form', (req, res, next) => { 
+    formModel.search()
+    .then(alldados => {
+      console.log("Pesquisando")
+        res.status(200).send("Dados retornados com sucesso!",alldados)
+    })
+          .catch((e) => {
+            console.log("erro aqui catch")
+            res.status(403).send(e);
+          });
+   
+  })
+
   
 
   server.get("*", (req, res) => {

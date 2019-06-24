@@ -20,7 +20,7 @@ const formSchema = new Schema({
     type: String,
     
   },
-  checkBox: [{
+  boxItem: [{
     type: String
   }],
   
