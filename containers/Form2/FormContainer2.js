@@ -165,7 +165,7 @@ handleTable = () =>{
              
              />
              <pre>
-		      {/*JSON.stringify(this.state, null, 2)*/}
+    {JSON.stringify(this.state, null, 2)}
 	        </pre>
              </div>
     );
