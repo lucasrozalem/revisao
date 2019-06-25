@@ -1,30 +1,29 @@
-import { Schema } from 'mongoose';
-import moment from 'moment';
+import { Schema } from "mongoose";
+import moment from "moment";
 
-moment.locale('pt-br');
+moment.locale("pt-br");
 
 const formSchema = new Schema({
   name: {
-    type: String,
-     },
- genre: {
+    type: String
+  },
+  genre: {
     type: String
   },
   age: {
     type: String
   },
-  salary: {
+  radio: {
     type: String
   },
   select: {
-    type: String,
-    
-  },
-  boxItem: [{
     type: String
-  }],
-  
-  
+  },
+  boxItem: [
+    {
+      type: String
+    }
+  ]
 });
 
 export default formSchema;
